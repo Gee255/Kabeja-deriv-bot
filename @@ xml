@@ -1,9 +1,95 @@
 <variables>
   <variable type="" id="psychological_level" islocal="false" iscloud="false">PSYCHOLOGICAL LEVEL</variable>
   <variable type="" id="buffer" islocal="false" iscloud="false">BUFFER</variable>
+</variables><variables>
+  <variable type="" id="psychological_level" islocal="false" iscloud="false">PSYCHOLOGICAL LEVEL</variable>
+  <variable type="" id="buffer" islocal="false" iscloud="false">BUFFER</variable>
 </variables>
 
-<statement name="INITIALIZATION">
+<statement name="INITIALIZATION"><statement <block type="controls_if" id="check_proximity">
+  <value name="IF0">
+    <block type="logic_operation" id="logic_and">
+      <field name="OP">AND</field>
+
+      <!-- Lower Bound Check -->
+      <value name="A">
+        <block type="logic_compare" id="lower_bound_check">
+          <field name="OP">GTE</field>
+          <value name="A">
+            <block type="variables_get" id="current_price">
+              <field name="VAR">CURRENT PRICE</field>
+            </block>
+          </value>
+          <value name="B">
+            <block type="math_arithmetic" id="calc_lower">
+              <field name="OP">MINUS</field>
+              <value name="A">
+                <block type="variables_get" id="psy_level_var">
+                  <field name="VAR">PSYCHOLOGICAL LEVEL</field>
+                </block>
+              </value>
+              <value name="B">
+                <block type="variables_get" id="buffer_var">
+                  <field name="VAR">BUFFER</field>
+                </block>
+              </value>
+            </block>
+          </value>
+        </block>
+      </value>
+
+      <!-- Upper Bound Check -->
+      <value name="B">
+        <block type="logic_compare" id="upper_bound_check">
+          <field name="OP">LTE</field>
+          <value name="A">
+            <block type="variables_get" id="current_price_upper">
+              <field name="VAR">CURRENT PRICE</field>
+            </block>
+          </value>
+          <value name="B">
+            <block type="math_arithmetic" id="calc_upper">
+              <field name="OP">PLUS</field>
+              <value name="A">
+                <block type="variables_get" id="psy_level_var_upper">
+                  <field name="VAR">PSYCHOLOGICAL LEVEL</field>
+                </block>
+              </value>
+              <value name="B">
+                <block type="variables_get" id="buffer_var_upper">
+                  <field name="VAR">BUFFER</field>
+                </block>
+              </value>
+            </block>
+          </value>
+        </block>
+      </value>
+    </block>
+  </value>
+  <statement name="DO0">
+    <!-- Add your trade logic here -->
+  </statement>
+</block>name="INITIALIZATION">
+  <!-- Set Psychological Level -->
+  <block type="variables_set" id="set_psy_level">
+    <field name="VAR" id="psychological_level">PSYCHOLOGICAL LEVEL</field>
+    <value name="VALUE">
+      <block type="math_number" id="psy_level_value">
+        <field name="NUM">1.2000</field> <!-- Replace with your level -->
+      </block>
+    </value>
+  </block>
+
+  <!-- Set Buffer -->
+  <block type="variables_set" id="set_buffer">
+    <field name="VAR" id="buffer">BUFFER</field>
+    <value name="VALUE">
+      <block type="math_number" id="buffer_value">
+        <field name="NUM">0.0010</field> <!-- Replace with your buffer -->
+      </block>
+    </value>
+  </block>
+</statement>
   <!-- Set Psychological Level -->
   <block type="variables_set" id="set_psy_level">
     <field name="VAR" id="psychological_level">PSYCHOLOGICAL LEVEL</field>
